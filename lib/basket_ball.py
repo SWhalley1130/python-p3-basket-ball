@@ -182,3 +182,46 @@ def game_dict():
             ]
         }
     }
+
+def num_points_per_game(name):
+    for key, team in game_dict().items():
+        for player in team['players']:
+            if player['name']==name:
+                return player['points_per_game']
+
+def player_age(name): 
+    for key, team in game_dict().items():
+        for player in team['players']:
+            if player['name']==name:
+                return player['age']
+
+def team_colors(team_name):
+    for key,team in game_dict().items():
+        if team['team_name']==team_name:
+            return team['colors']
+
+def team_names():
+    return [team['team_name'] for key,team in game_dict().items()]
+
+def player_numbers(team_name):
+    for key,team in game_dict().items():
+        if team['team_name']==team_name:
+            return ([player['number'] for player in team['players']])
+
+def player_stats(name):
+    for key, team in game_dict().items():
+        for player in team['players']:
+            if player['name']==name:
+                return player
+
+def average_rebounds_by_shoe_brand():
+    shoeDict=dict()
+    for key, team in game_dict().items():
+        for player in team['players']:
+            if shoeDict.get(player['shoe_brand'])==None:
+                shoeDict[player['shoe_brand']]=[]
+                shoeDict[player['shoe_brand']].append(player['rebounds_per_game'])
+            else:
+                shoeDict[player['shoe_brand']].append(player['rebounds_per_game'])
+    for key, value in shoeDict.items():
+        print(f'{key}: {sum(value)/len(value): .2f}')
